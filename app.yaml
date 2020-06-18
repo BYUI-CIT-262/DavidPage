@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: david-page
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: david-page
+  template:
+    metadata:
+      labels:
+        app: david-page
+    spec:
+      containers:
+      - name: david-page
+        image: gcr.io/potent-galaxy-274115/david-page
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: ".5"
+            memory: "500Mi"
+          requests:
+            cpu: ".25"
+            memory: "250Mi"
+        livenessProbe:
+          httpGet:
+            path: /index.html
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: david-page-service
+spec:
+  selector:
+    app: david-page
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: david-page-loadbalancer
+spec:
+  selector:
+    app: david-page
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+   
