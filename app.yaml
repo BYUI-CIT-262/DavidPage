@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: david-page
-        image: gcr.io/potent-galaxy-274115/david-page
+        image: gcr.io/cit-262-group3/david-page
         ports:
         - containerPort: 80
         resources:
