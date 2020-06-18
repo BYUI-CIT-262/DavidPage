@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: david-page
-        image: gcr.io/cit262-group2/cit262-DavidPage
+        image: gcr.io/cit-262-group2/cit262-DavidPage
         ports:
         - containerPort: 80
         resources:
